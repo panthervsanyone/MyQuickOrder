@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+  <preference for="ALevel\MyQuickOrder\Api\Model\OrderInterface"
+              type="ALevel\MyQuickOrder\Model\Order"/>
+  <preference for="ALevel\MyQuickOrder\Api\Repository\OrderRepositoryInterface"
+              type="ALevel\MyQuickOrder\Repository\OrderRepository"/>
+  <preference for="ALevel\MyQuickOrder\Api\Model\StatusInterface"
+              type="ALevel\MyQuickOrder\Model\Status"/>
+  <preference for="ALevel\MyQuickOrder\Api\Repository\StatusRepositoryInterface"
+              type="ALevel\MyQuickOrder\Repository\StatusRepository"/>
+
+  <preference for="Magento\CatalogWidget\Block\Product\ProductsList"
+              type="ALevel\MyQuickOrder\Block\Product\ProductsList" />
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="quickorder_grid_listing_data_source" xsi:type="string">ALevel\MyQuickOrder\Model\ResourceModel\Order\Grid\Collection</item>
+            </argument>
+        </arguments>
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="quickorder_status_listing_data_source" xsi:type="string">ALevel\MyQuickOrder\Model\ResourceModel\Status\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

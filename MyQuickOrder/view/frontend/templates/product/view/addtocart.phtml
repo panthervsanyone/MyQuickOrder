@@ -1,0 +1,82 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var $block \Magento\Catalog\Block\Product\View */
+?>
+<?php $_product = $block->getProduct(); ?>
+<?php $buttonTitle = ('Add to Cart'); ?>
+
+<?php if ($_product->isSaleable()) :?>
+    <div class="box-tocart">
+        <div class="fieldset">
+            <?php if ($block->shouldRenderQuantity()) :?>
+                <div class="field qty">
+                    <label class="label" for="qty"><span><?= $block->escapeHtml(('Qty')) ?></span></label>
+                    <div class="control">
+                        <input type="number"
+                               name="qty"
+                               id="qty"
+                               min="0"
+                               value="<?= $block->getProductDefaultQty() * 1 ?>"
+                               title="<?= $block->escapeHtmlAttr(('Qty')) ?>"
+                               class="input-text qty"
+                               data-validate="<?= $block->escapeHtmlAttr(json_encode($block->getQuantityValidators())) ?>"
+                        />
+                    </div>
+                </div>
+            <?php endif; ?>
+            <div class="actions">
+                <button type="submit"
+                        title="<?= $block->escapeHtmlAttr($buttonTitle) ?>"
+                        class="action primary tocart"
+                        id="product-addtocart-button" disabled>
+                    <span><?= $block->escapeHtml($buttonTitle) ?></span>
+                </button>
+                <?= $block->getChildHtml('', true) ?>
+                <button
+                   type="button"
+                   class="action open-modal-form"
+                   title="Modal"
+                   style="
+                      color: #fff;
+                      background: #1979c3;
+                      border-radius: 0;
+                      font-size: 1.8rem;
+                      font-weight: 600;
+                      width: 49%;
+                      border: 0px solid #1979c3;
+                      float: left;
+                    "
+                    data-mage-init='
+                             {
+                                 "ALevel_MyQuickOrder/js/quickorder": {}
+                             }
+                    '>
+
+                    <span>
+
+                    <?=('Quick Order');?>
+
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+<?php endif; ?>
+<script type="text/x-magento-init">
+    {
+        "#product_addtocart_form": {
+            "Magento_Catalog/js/validate-product": {}
+        }
+    }
+</script>
+
+
+<div id="modal-form" style="display:none;">
+  <input type="text" id="name_quick_order" placeholder="Take your name">
+  <input type="text" id="phone_quick_order" placeholder="Take your phone">
+  <input type="text" id="email_quick_order" placeholder="Take your email">
+</div>
